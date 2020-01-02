@@ -31,6 +31,107 @@
     font-size: 25px;
   }
 
+
+/* --------------------------MENU (MINHA CONTA) */
+
+#imgUrsinho{
+    width: 70px;
+}
+
+#conta{
+    margin-left: 30px;
+    margin-top: 27px;
+}
+
+#maisInformacoes{
+    align-items: center;
+    border: none;
+}
+
+#maisInformacoes span{
+    font-size: var(--tamLetraMenu_Informacao);
+    color: gray;
+}
+
+#usuario{
+    font-size: var(--tamLetraValor);
+    color: var(--laranja);
+    text-align: center; 
+}
+
+#sair{
+    font-size: var(--tamLetraMenu_Informacao);
+    color: var(--laranja); 
+}
+
+#ultimaCompra{
+    text-align: center; 
+}
+
+#ult1{
+    font-size: var(--tamLetraDesc);
+}
+
+#ult2{
+    display: flex;
+    align-items: center;
+}
+
+#desc{
+    color: black;
+    margin: 0px 10px;
+}
+
+#preco{
+    color: black;
+    font-weight: bold;
+}
+
+
+/* -------------------------- */
+/* --------------------------MENU (CARRINHO) */
+
+#areaItens{
+    background-color: var(--laranja);
+    color: var(--branco);
+    padding: 20px 20px;
+}
+
+#totalItens{
+    font-size: var(--tamLetraDesc);
+    color: black;
+    font-weight: bold;    
+}
+
+#comprarItens{
+    background-color: var(--laranja);
+    padding: 10px 0px;
+    border-radius: 3px;
+    color: var(--branco);
+    /* display: flex; */
+    justify-content: center;
+    width: 100px;
+    margin-left: 85px;
+}
+
+#limparItens{
+    color: gray;
+    width: 100px;
+    margin-left: 85px;
+}
+
+#itens{
+    text-align: center;
+}
+
+/* #teste{
+    background-color: blue;
+    margin-left: 100px;
+    padding: 50px 50px;
+} */
+
+/* -------------------------- */
+
   /*#region Header*/
   #header_{
     display: flex;
@@ -134,6 +235,10 @@
     text-align: center;
     padding: 20px 0px;
     font-size: var(--tamLetraMenu_Informacao);
+  }
+
+  #form{
+    display: flex;
   }
   
   /*#endregion*/
@@ -344,6 +449,10 @@
     #menuWeb a{
         margin-left: 10px;
     }
+
+    .btnEnviar{
+      padding: 10px 15px;
+    }
   
   }
   /*#endregion*/
@@ -419,6 +528,10 @@
         text-align: center;
         z-index: 1;
      }
+
+     #form{
+        flex-direction: column;
+    }
   }
   /*#endregion*/
 

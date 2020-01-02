@@ -4,7 +4,7 @@ import Footer from '../../components/Footer/Footer';
 // import ursinho from '../../assets/img/ursinho.jpg';
 import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
 import '../../assets/css/style.css';
-import { MDBBtn } from "mdbreact";
+// import { MDBBtn } from "mdbreact";
 import { Carousel } from 'react-responsive-carousel';
 
 
@@ -81,7 +81,7 @@ class Compra extends Component {
                                         </div>
                                         <div id="btnComprarProduto">
                                             {/* <MDBBtn color="deep-orange">Comprar  <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></MDBBtn> */}
-                                            <a href="/Compra" className="btnComprar">COMPRAR</a>
+                                            <a href="/Compra" className="btnComprar">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a>
                                         </div>
                                     </div>
                                 </div>

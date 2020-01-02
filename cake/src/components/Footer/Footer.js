@@ -1,10 +1,30 @@
 import React, {Component} from 'react';
-// import { MDBInput } from "mdbreact";
 
 class Footer extends Component{
-  render(){
+    postEmail = (event) => {
+        event.preventDefault();
+
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({"email":"cdd@corebiz.com.br"});
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://desolate-brushlands-20405.herokuapp.com/api/v1/user", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error))
+    }
+
+
+    render(){
     return(
-      <div>
+        <div>
             <div id="footer_alto">
                 <div className="container"> 
                     <div  id="footer">
@@ -17,15 +37,16 @@ class Footer extends Component{
                                 Receba novas promoções <br/>e novidades. Inscreva-se:
                             </p>
                         </div>
-
-                        <div>
-                            <input type="text" name="" className="txtField" placeholder="Seu nome"/>
-                            <input type="text" name="" className="txtField" placeholder="Seu email"/>
-                        </div>
-                        
-                        <div>
-                            <input type="button" className="btnEnviar" value="ENVIAR"/>
-                        </div>
+                        <form id="form" onSubmit={this.postEmail}>
+                            <div>
+                                <input type="text" name="" className="txtField" placeholder="Seu nome"/>
+                                <input type="text" name="" className="txtField" placeholder="Seu email"/>
+                            </div>
+                            
+                            <div>
+                                <button className="btnEnviar" type="submit" name="Enviar">ENVIAR</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -33,9 +54,9 @@ class Footer extends Component{
             <div id="footer_baixo">
                 <p>Developed by Corebiz</p>
             </div>
-      </div>
+        </div>
     );
-  }
+    }
 }
 
 export default Footer;

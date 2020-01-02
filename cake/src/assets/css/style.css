@@ -1,0 +1,429 @@
+ :root {
+    --branco: #FFFFFF;
+    --cinza: #F2F2F2;
+    --laranja: #EF7460;
+    --corLetra: #222222;
+
+    --tamLetraTit: 40px;
+    --tamLetraValor: 24px;
+    --tamLetraDesc: 16px;
+    --tamLetraInput: 15px;
+    --tamLetraMenu_Informacao: 14px;
+
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container{
+    margin: auto;
+    width: 1200px;
+  }
+
+  #notfound{
+    text-align: center;
+    margin: 16vw 0vw;
+  }
+  
+  #notfound a{
+    font-size: 25px;
+  }
+
+  /*#region Header*/
+  #header_{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  #header_ a{
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+  }
+  
+  #menu{
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    height: 100px;
+    list-style: none;
+    align-items: center;
+  }
+
+  #menuGeral{
+    font-size: var(--tamLetraMenu_Informacao);
+  }
+  
+  #menu a{
+    text-decoration: none;
+  }
+
+  #menuGeral a {
+    color: gray;
+    justify-content: center;
+}
+  
+  #line{
+    border-bottom: 2px solid var(--cinza);
+  }
+
+  #menuMobile{
+    display: flex;
+    flex-direction: row;
+    /* z-index: 1000; */
+  }
+  
+  #toggle {
+    display: none;
+  }
+  
+  #menuWeb{
+    display: flex;
+  }
+  
+  #menuWeb a{
+    margin-left: 40px;
+  }
+
+ /*#endregion*/
+  
+  /*#region Footer*/
+  #footer_alto{
+    background-color: var(--laranja);
+    color: var(--branco);
+    padding: 20px 0px;
+  }
+  
+  #footer{
+    display: flex;
+    align-items: center;
+  }
+
+  #news{
+    font-size: var(--tamLetraTit);
+  }
+  
+  #promo{
+    font-size: var(--tamLetraDesc);
+    margin-right: 150px;
+  }
+  
+  .txtField{
+    padding: 10px 0px;
+    padding-right: 120px;
+    padding-left: 20px;
+    margin-right: 20px;
+    border-radius: 3px;
+    border-style: none;
+    font-size: var(--tamLetraInput);
+  }
+  
+  .btnEnviar{
+    padding: 10px 50px;
+    border-radius: 3px;
+    border-style: none;
+    color: var(--laranja);
+    font-size: var(--tamLetraInput);
+  }
+  
+  #footer_baixo{
+    background-color: var(--cinza);
+    text-align: center;
+    padding: 20px 0px;
+    font-size: var(--tamLetraMenu_Informacao);
+  }
+  
+  /*#endregion*/
+  
+  /*#region Main Home*/
+  .conteudo{
+    margin: 7vw 0vw; 
+  }
+    
+  main h1{
+    text-align: center;
+    margin: 40px 0px;
+    font-size: var(--tamLetraTit);
+  }
+  
+  .produto{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: auto;
+  }
+  
+  .card {
+    -webkit-box-shadow: 0px 0px 20px -14px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 20px -14px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 20px -14px rgba(0, 0, 0, 1);
+    background-color: white;
+    padding: 25px;
+    width: 200px;
+    /* margin: 10px 25px; */
+    border-radius: 3px;
+    margin: 10px auto;
+  }
+
+  #nomeProdutoHome{
+      height: 40px;
+      font-size: var(--tamLetraDesc);
+  }
+
+  .imgBombom{
+    width: 200px;
+  }
+  
+  #rs{
+    color: var(--laranja);
+    margin-bottom: 20px;
+    font-size: var(--tamLetraMenu_Informacao);
+    font-weight: bold;
+  }
+  
+  #valor{
+    font-size: var(--tamLetraValor);
+    font-weight: bold;
+  }
+
+  .btnComprar{
+    background-color: var(--laranja);
+    padding: 10px 50px;
+    border-radius: 3px;
+    color: var(--branco);
+  }
+
+  .btnComprar:hover{
+    color: var(--branco);
+  }
+
+  #mais{
+    text-align: end;
+    padding: 30px; 
+ } 
+  /*#endregion*/
+
+  /*#region Main Compra*/
+  /*#region CSS Botão Comprar*/
+  .number-input input[type="number"] {
+    -webkit-appearance: textfield;
+      -moz-appearance: textfield;
+            appearance: textfield;
+  }
+  .number-input input[type=number]::-webkit-inner-spin-button,
+  .number-input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+  .number-input {
+    height: 40px;
+  }
+  .number-input button {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+  }
+  .number-input button:before,
+  .number-input button:after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    height: 2px;
+    transform: translate(-50%, -50%);
+  }
+  .number-input button.plus:after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  .number-input input[type=number] {
+    text-align: center;
+  }
+  .number-input.number-input {
+    border: 1px solid #ced4da;
+    width: 9rem;
+    border-radius: .25rem;
+  }
+  .number-input.number-input button {
+    width: 2.6rem;
+    height: .7rem;
+  }
+  .number-input.number-input button.minus {
+    padding-left: 10px;
+  }
+  .number-input.number-input button:before,
+  .number-input.number-input button:after {
+    width: .7rem;
+    background-color: var(--laranja);
+  }
+  .number-input.number-input input[type=number] {
+    max-width: 3rem;
+    padding: .2rem;
+    border: 1px solid #ced4da;
+    border-width: 0 1px;
+    font-size: 1rem;
+    height: 2rem;
+    color: #495057;
+  }
+  /*#endregion*/
+  .componentes{
+    display: flex;
+    justify-content: space-around;
+    margin: 3vw 0vw;
+  }
+  
+  #carousel{
+    width: 400px;
+  }
+
+  #nomeProdutoCompra{
+    font-size: var(--tamLetraTit);
+  }
+  
+  #valorAnterior{
+    color: darkgray;
+    font-size: var(--tamLetraMenu_Informacao);
+    text-decoration: line-through;
+  }
+  
+  #valorNovo{
+    font-size: var(--tamLetraValor);
+  }
+  
+  #funcionalidade{
+    display: flex;
+    align-items: center;
+  }
+  
+  #informacoesProduto{
+    margin-top: 70px;
+  }
+ 
+  #btnComprarProduto{
+      margin-left: 10px;
+  }
+
+  #btnComprarProduto a{
+    color: var(--branco);
+  }
+
+  /*#endregion*/
+     
+  /*#region TABLET*/
+  @media (min-width:768px) and (max-width: 1200px) {
+    .container{ width: 768px; }
+    .produto{ width: 600px; }
+    
+    /*Header*/
+    #menu{ width: 380px; }
+  
+    /* Footer */
+    #news{
+      font-size: 30px;
+      margin-right: 60px;
+    }
+  
+    #promo{
+      font-size: 15px;
+      margin-right: 0px;  
+    }
+  
+    .txtField{
+      padding-right: 5px;
+    }
+  
+    #menuMobile {
+        display: none;
+    }
+    
+    #menuWeb a{
+        margin-left: 10px;
+    }
+  
+  }
+  /*#endregion*/
+  
+  /*#region MOBILE*/
+  @media(min-width: 360px) and (max-width: 767px) {
+    .container{
+      width: 360px;
+    }
+  
+    .produto .card{
+      margin-bottom: 20px;
+    }
+  
+      /* Footer */
+      #news{
+        font-size: 30px;
+      }
+    
+      #promo{
+        font-size: 15px;
+        margin-right: 0px;
+        margin-bottom: 10px;
+      }
+    
+      .txtField{
+        padding-right: 30px;
+        margin-right: 0px;
+        margin-bottom: 10px;
+      }
+  
+      #footer{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+      }
+  
+      .componentes{
+        display: flex;
+        flex-direction: column;
+      }
+  
+      /*MENU*/
+      #lblMenu {
+          display: block;
+          cursor: pointer;
+      }
+  
+      .menuHome {
+          display: none;
+          width: 100px;
+      }
+
+      .menuHome a {
+          display: block;
+          border: 1px solid var(--cinza);
+          background-color: var(--branco);
+          border-radius: 3px;
+      }
+  
+      #toggle:checked + .menuHome{
+          display: block;
+      }
+
+      #menuWeb{
+          display: none;
+      }
+
+      .nav {
+        /* text-align: right; */
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+        z-index: 1;
+     }
+  }
+  /*#endregion*/
+
+  @media(min-width: 1200px){
+    #menuMobile {
+        display: none;
+    }
+  }

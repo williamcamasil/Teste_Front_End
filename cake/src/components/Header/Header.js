@@ -1,3 +1,4 @@
+/* eslint-disable react/no-direct-mutation-state */
 import React, {Component} from 'react';
 import logo from '../../assets/img/logo.svg';
 import usuario from '../../assets/img/usuario.svg';
@@ -15,6 +16,8 @@ class Header extends Component{
         precoProduto: [],
         qtdProduto: [],
         ids: [],
+
+        valorItem: [],
         valorTotal: 0
     }
   }
@@ -42,14 +45,15 @@ class Header extends Component{
     }
 
     //SOMANDO O VALOR TOTAL
-    if(this.state.valorTotal !== 0){
+    setTimeout(() => {
       let res = 0
       for(let v = 0; v <= this.state.i-1; v++){
-          res += this.state.precoProduto[v]
+          this.state.valorItem[v] = this.state.qtdProduto[v] * this.state.precoProduto[v]
+          res += this.state.valorItem[v]
       }
 
-      this.setState({  valorTotal : res });
-    }
+      this.setState({  valorTotal : res });      
+    }, 100);
   }
 
   decrease = () => {
@@ -75,11 +79,10 @@ class Header extends Component{
       produtos.push(
       <MenuItem header id="ult2">
         <span>X</span>
-        <img id="imgUrsinho" src={this.state.imagemProduto[i]}  alt="Botão de usuário para acessar sua conta"/> 
+        <img id="imgProduto" src={this.state.imagemProduto[i]}  alt="Botão de usuário para acessar sua conta"/> 
         
-        <div>
+        <div id="nqp">
           <span id="desc">{this.state.nomeProduto[i]}</span> 
-
           <div className="def-number-input number-input">
               <button onClick={() => this.decrease()} className="minus"></button>
               <input className="quantity" name="quantity" value={this.state.qtdProduto[i]} type="number" />
@@ -87,7 +90,8 @@ class Header extends Component{
           </div>
         </div>
 
-        <span  id="preco">{this.state.qtdProduto[i] * this.state.precoProduto[i]}</span>
+        {/* <span  id="preco">R$ {this.state.qtdProduto[i] * this.state.precoProduto[i]}</span> */}
+        <span  id="preco">R$ {this.state.valorItem[i] }</span>
       </MenuItem>)
     }
 
@@ -119,7 +123,11 @@ class Header extends Component{
                                         <MenuItem eventKey={1} id="sair">sair</MenuItem>
                                         <MenuItem divider />
                                         <MenuItem header id='"ult1'>Última compra</MenuItem>
-                                        <MenuItem header id="ult2"><img id="imgUrsinho" src={this.state.imagemProduto[this.state.i-1]} alt="Botão de usuário para acessar sua conta"/> <span id="desc">{this.state.nomeProduto[this.state.i-1]}</span> <span  id="preco">{this.state.precoProduto[this.state.i-1]}</span></MenuItem>                        
+                                        <MenuItem header id="ult2">
+                                            <img id="imgProduto" src={this.state.imagemProduto[this.state.i-1]} alt="Imagem do produto comprado"/> 
+                                            <span id="desc">{this.state.nomeProduto[this.state.i-1]}</span> 
+                                            <span  id="preco">R$ {this.state.precoProduto[this.state.i-1]}</span>
+                                        </MenuItem>                        
                                       </div>
                                     </Dropdown.Menu>
                                   </Dropdown>
@@ -141,14 +149,18 @@ class Header extends Component{
                                   <Dropdown.Toggle btnStyle="flat" id="maisInformacoes" onClick={() => this.mostrarLocalStorage()}>
                                       <span>Minha conta</span>
                                   </Dropdown.Toggle>
-                                <Dropdown.Menu>
+                                <Dropdown.Menu id="menuPrincipal">
                                   <div id="ultimaCompra">
                                       <MenuItem header id="usuario">Olá Willian</MenuItem>
                                       <MenuItem header>willian.lopes@corebiz.com.br</MenuItem>
                                       <MenuItem eventKey={1} id="sair">sair</MenuItem>
                                       <MenuItem divider />
                                       <MenuItem header id='"ult1'>Última compra</MenuItem>
-                                      <MenuItem header id="ult2"><img id="imgUrsinho" src={this.state.imagemProduto[this.state.i-1]} alt="Botão de usuário para acessar sua conta"/> <span id="desc">{this.state.nomeProduto[this.state.i-1]}</span> <span  id="preco">{this.state.precoProduto[this.state.i-1]}</span></MenuItem>                      
+                                      <MenuItem header id="ult2">
+                                          <img id="imgProduto" src={this.state.imagemProduto[this.state.i-1]} alt="Imagem do produto comprado"/> 
+                                          <span id="desc">{this.state.nomeProduto[this.state.i-1]}</span> 
+                                          <span  id="preco">R$ {this.state.precoProduto[this.state.i-1]}</span>
+                                      </MenuItem>                      
                                     </div>
                                 </Dropdown.Menu>
                               </Dropdown>
@@ -163,13 +175,24 @@ class Header extends Component{
                         <p id="qtdPedidos">{this.state.i}</p><img src={carrinho} alt="Carrinho de compras realizadas"/>
                     </Dropdown.Toggle>
                     <Dropdown.Menu id="menuPrincipal">
-                        <MenuItem header id="areaItens"><span>MEU CARRINHO</span>  <span>{this.state.i} item(s)</span></MenuItem>
+                        <MenuItem header id="areaItens">
+                            <span>MEU CARRINHO</span>  
+                            <span>{this.state.i} item(s)</span>
+                        </MenuItem>
                         <div id="itens">
                           {produtos}
                           <MenuItem divider />
-                          <MenuItem header id="totalItens">Total: R${this.state.valorTotal}</MenuItem> 
-                          <MenuItem header><a href="/" id="comprarItens">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a></MenuItem> 
-                          <MenuItem header><a href="/" id="limparItens" onClick={() => this.limparCompra()}>X Limpar carrinho</a></MenuItem>                         
+                          <MenuItem header id="totalItens">Total: R${this.state.valorTotal.toFixed(2)}</MenuItem> 
+                          <MenuItem header>
+                              <a href="/" id="comprarItens">
+                                COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" />
+                              </a>
+                          </MenuItem> 
+                          <MenuItem header>
+                              <a href="/" id="limparItens" onClick={() => this.limparCompra()}>
+                                  X Limpar carrinho
+                              </a>
+                          </MenuItem>                         
                         </div>
                     </Dropdown.Menu>
                 </Dropdown>

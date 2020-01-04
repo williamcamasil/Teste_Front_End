@@ -37,7 +37,7 @@ maisProdutos = () => {
                 {
                 this.state.listaProdutos.map(function (produto) {
                     return (
-                        <>
+                        < >
                             <div className="card">
                                 <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
                                 

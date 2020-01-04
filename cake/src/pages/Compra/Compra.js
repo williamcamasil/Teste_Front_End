@@ -2,9 +2,10 @@
 import React, {Component} from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
 import '../../assets/css/style.css';
 import { Carousel } from 'react-responsive-carousel';
-
+import { MDBAlert } from "mdbreact";
 
 class Compra extends Component {
     constructor(props) {
@@ -26,6 +27,9 @@ class Compra extends Component {
 
             i: 0,
             a: 0,
+
+            successMsg: '',
+            erroMsg: ''
         }
     }
 
@@ -78,8 +82,7 @@ class Compra extends Component {
         if (localStorage.getItem ( "qtdids" )){
             this.setState({ a: localStorage.getItem( "qtdids"  ) });
         }
-
-        
+ 
         setTimeout(() => {
             if ( this.state.value !== 0){
                 let m = false;
@@ -91,6 +94,7 @@ class Compra extends Component {
     
                 //verificando se item já foi comprado
                 if(m === false){
+                    this.state.successMsg = "Item comprado com sucesso!"
                     let res = parseInt(this.state.a) + 1; 
                     this.setState({ i: res });
                     localStorage.setItem("qtdids", this.state.i);
@@ -108,16 +112,21 @@ class Compra extends Component {
                     localStorage.setItem("ids" , JSON.stringify(this.state.ids));
                 }
             }else{
-                console.log('Não foi possível realizar a compra')
+                this.state.erroMsg = "Houve algum problema no sistema. A compra não foi processada."
             }
             
         }, 50);
+
+        setTimeout(() => {
+            this.setState({ successMsg: "" });
+            this.setState({ erroMsg: "" });
+        }, 3500);
     }   
 
     render() {
         return (
         <div>
-            <Header />            
+            <Header />   
             <main className="container">
                 <div className="componentes">
                     <div id="carousel">
@@ -145,11 +154,27 @@ class Compra extends Component {
                             </div>
                             
                             <div id="btnComprarProduto">
-                                {/* <a  href="/" className="btnComprar">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a> */}
-                                <button className="btnComprar" onClick={() => this.comprarLocalStorage()} >COMPRAR</button>
+                                <button className="btnComprar" onClick={() => this.comprarLocalStorage()} >COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></button>
                             </div>
+
                         </div>
                     </div>
+                </div>
+
+                <div className="Mensagens">
+                    {
+                        this.state.erroMsg &&
+                        <MDBAlert className="text-center" color="danger" >
+                            {this.state.erroMsg && <div className="erroMensagem">{this.state.erroMsg}</div>}
+                        </MDBAlert>
+                    }
+
+                    {
+                        this.state.successMsg &&
+                        <MDBAlert className="text-center" color="success" >
+                            {this.state.successMsg && <div className="certoMensagem">{this.state.successMsg}</div>}
+                        </MDBAlert>
+                    }
                 </div>
             </main>
             <Footer />

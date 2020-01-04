@@ -1,23 +1,31 @@
+/* eslint-disable react/no-direct-mutation-state */
 import React, {Component} from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-// import ursinho from '../../assets/img/ursinho.jpg';
-import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
 import '../../assets/css/style.css';
-// import { MDBBtn } from "mdbreact";
 import { Carousel } from 'react-responsive-carousel';
 
 
 class Compra extends Component {
-    // state = {
-    //     value: 0
-    // }
     constructor(props) {
         super(props);
         this.state = {
             listaProduto: [],
             value: 0,
-            produto: 0
+
+            nomeProduto: [],
+            imagemProduto: [],
+            precoProduto: [],
+            qtdProduto: [],
+            ids: [],
+
+            productName: "",
+            imageUrl: "",
+            price: "",
+            quantidade: 0,
+
+            i: 0,
+            a: 0,
         }
     }
 
@@ -31,10 +39,10 @@ class Compra extends Component {
         .then(response => response.json())
         .then(response => {
             this.setState({ listaProduto: response })
-            // console.log('infos ', response)
+            this.setState({ productName: this.state.listaProduto[0].productName });
+            this.setState({ imageUrl: this.state.listaProduto[0].imageUrl });
+            this.setState({ price: this.state.listaProduto[0].price });
         })
-        
-        console.log('id: ', id)
     }
 
     decrease = () => {
@@ -45,9 +53,66 @@ class Compra extends Component {
         this.setState({ value: this.state.value + 1 });
     }
 
-    // comprar = () => {
-    //     this.setState({ produto: this.state.produto + 1 });
-    // }
+    //simulando compra
+    comprarLocalStorage = () => {    
+        if (localStorage.getItem ( "ids" )){
+            this.setState({  ids : JSON.parse(localStorage.getItem( "ids" )) });
+        }
+
+        if ( localStorage.getItem( "nomeProduto" ) ){
+            this.setState({  nomeProduto : JSON.parse(localStorage.getItem( "nomeProduto" )) });
+        }
+
+        if ( localStorage.getItem( "imagemProduto" ) ){
+            this.setState({  imagemProduto : JSON.parse(localStorage.getItem( "imagemProduto" )) });
+        }
+
+        if ( localStorage.getItem( "precoProduto" ) ){
+            this.setState({  precoProduto : JSON.parse(localStorage.getItem( "precoProduto" )) });
+        }
+        
+        if ( localStorage.getItem( "qtdProduto" ) ){
+            this.setState({  qtdProduto : JSON.parse(localStorage.getItem( "qtdProduto" )) });
+        }
+
+        if (localStorage.getItem ( "qtdids" )){
+            this.setState({ a: localStorage.getItem( "qtdids"  ) });
+        }
+
+        
+        setTimeout(() => {
+            if ( this.state.value !== 0){
+                let m = false;
+                for(let l = 0; l <= this.state.i-1; l++){
+                    if (this.state.ids[l] === this.props.location.state.productId ){
+                        m = true; //item já foi comprado - Permitir mudar somente a quantidade
+                    }
+                }
+    
+                //verificando se item já foi comprado
+                if(m === false){
+                    let res = parseInt(this.state.a) + 1; 
+                    this.setState({ i: res });
+                    localStorage.setItem("qtdids", this.state.i);
+                    
+                    this.state.nomeProduto[this.state.i-1] = this.state.productName;
+                    this.state.imagemProduto[this.state.i-1] = this.state.imageUrl;
+                    this.state.precoProduto[this.state.i-1] = this.state.price;
+                    this.state.qtdProduto[this.state.i-1] = this.state.value;
+                    this.state.ids[this.state.i-1] = this.props.location.state.productId;
+            
+                    localStorage.setItem("nomeProduto" , JSON.stringify(this.state.nomeProduto));
+                    localStorage.setItem("imagemProduto" , JSON.stringify(this.state.imagemProduto));
+                    localStorage.setItem("precoProduto" , JSON.stringify(this.state.precoProduto));
+                    localStorage.setItem("qtdProduto" , JSON.stringify(this.state.qtdProduto));
+                    localStorage.setItem("ids" , JSON.stringify(this.state.ids));
+                }
+            }else{
+                console.log('Não foi possível realizar a compra')
+            }
+            
+        }, 50);
+    }   
 
     render() {
         return (
@@ -55,53 +120,37 @@ class Compra extends Component {
             <Header />            
             <main className="container">
                 <div className="componentes">
+                    <div id="carousel">
+                        <Carousel>
+                            <div>
+                                <img src={this.state.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
+                            </div>
+                            <div>
+                                <img src={this.state.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
+                            </div>
+                        </Carousel>
+                    </div>
+                    <div id="informacoesProduto">
+                        <p id="nomeProdutoCompra">{this.state.productName}</p>
+                        <p id="valorAnterior">R$ 30,00</p>
+                        <p id="rs">
+                            R$ <span id="valorNovo">{this.state.price}</span>
+                        </p>
 
-                {
-                    this.state.listaProduto.map(function (produto) {
-                        return (
-                            <>   
-                                <div id="carousel">
-                                    <Carousel>
-                                        <div>
-                                            <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
-                                        </div>
-                                        <div>
-                                            <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
-                                        </div>
-                                    </Carousel>
-                                </div>
-                                <div id="informacoesProduto">
-                                    <p id="nomeProdutoCompra">{produto.productName}</p>
-                                    <p id="valorAnterior">R$ 30,00</p>
-                                    <p id="rs">
-                                        R$ <span id="valorNovo">{produto.price}</span>
-                                    </p>
-
-                                    <div id="funcionalidade">
-                                        <div className="def-number-input number-input">
-                                            <button onClick={() => this.decrease()} className="minus"></button>
-                                            {/* <input className="quantity" name="quantity" value={this.state.value} onChange={()=> console.log('change')} type="number" /> */}
-                                            <input className="quantity" name="quantity" value={0} onChange={()=> console.log('change')} type="number" />
-                                            <button onClick={() => this.increase()} className="plus"></button>
-                                        </div>
-                                        <div id="btnComprarProduto">
-                                            {/* <MDBBtn color="deep-orange">Comprar  <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></MDBBtn> */}
-                                            <a href="/Compra" className="btnComprar">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                
-                            </>
-                            );
-                        })
-                }
-
+                        <div id="funcionalidade">
+                            <div className="def-number-input number-input">
+                                <button onClick={() => this.decrease()} className="minus"></button>
+                                <input className="quantity" name="quantity" value={this.state.value} type="number" />
+                                <button onClick={() => this.increase()} className="plus"></button>
+                            </div>
+                            
+                            <div id="btnComprarProduto">
+                                {/* <a  href="/" className="btnComprar">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a> */}
+                                <button className="btnComprar" onClick={() => this.comprarLocalStorage()} >COMPRAR</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                {/* <input className="quantity" name="quantity" value={this.state.produto} onChange={()=> console.log('change')} type="number" />
-                <button onClick={() => this.comprar()} >Comprar</button> */}
-
             </main>
             <Footer />
         </div>

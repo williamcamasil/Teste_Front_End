@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import logo from '../../assets/img/logo.svg';
 import usuario from '../../assets/img/usuario.svg';
 import carrinho from '../../assets/img/carrinho.svg';
+import ursinho from '../../assets/img/ursinho.svg';
 import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
 
 import Dropdown, { MenuItem } from '@trendmicro/react-dropdown';
@@ -19,36 +20,33 @@ class Header extends Component{
     }
   }
 
-  //Método que mostra os produtos adquiridos no carrinho
+  //simulando a mostragem das compras feitas ---> permitir mostrar mais de 1
   mostrarLocalStorage = () => {
     if (localStorage.getItem ( "qtdids" )){
         this.setState({ i: localStorage.getItem( "qtdids"  ) });
     }
 
     if (localStorage.getItem ( "nomeProduto" )){
-      this.setState({  nomeProduto : JSON.parse(localStorage.getItem( "nomeProduto" )) });
+        this.state.nomeProduto = JSON.parse(localStorage.getItem( "nomeProduto" ));
     }
 
     if (localStorage.getItem ( "imagemProduto" )){
-        this.setState({  imagemProduto : JSON.parse(localStorage.getItem( "imagemProduto" )) });
+        this.state.imagemProduto = JSON.parse(localStorage.getItem( "imagemProduto" ));
     }
 
     if (localStorage.getItem ( "precoProduto" )){
-        this.setState({  precoProduto : JSON.parse(localStorage.getItem( "precoProduto" )) });
+        this.state.precoProduto = JSON.parse(localStorage.getItem( "precoProduto" ));
     }
 
     if (localStorage.getItem ( "qtdProduto" )){
-        this.setState({  qtdProduto : JSON.parse(localStorage.getItem( "qtdProduto" )) });
+        this.state.qtdProduto = JSON.parse(localStorage.getItem( "qtdProduto" ));
     }
 
     //SOMANDO O VALOR TOTAL
     if(this.state.valorTotal !== 0){
-      let res = 0
       for(let v = 0; v <= this.state.i-1; v++){
-          res += this.state.precoProduto[v]
+          this.state.valorTotal += this.state.precoProduto[v]
       }
-
-      this.setState({  valorTotal : res });
     }
   }
 
@@ -60,7 +58,7 @@ class Header extends Component{
       this.setState({ value: this.state.value + 1 });
   }
 
-  limparCompra = () => {
+  deletarCompras = () => {
     localStorage.removeItem( "qtdids" )
     localStorage.removeItem( "nomeProduto" )
     localStorage.removeItem( "imagemProduto" )
@@ -106,20 +104,22 @@ class Header extends Component{
                             <li><a href="/">Categoria 04</a></li>
                         </ul>
                         
+                        {/* <a href="/"><img src={usuario} alt="Botão de usuário para acessar sua conta"/> Minha conta</a>    */}
+                      
                         <div id="conta">
                                 <div>
-                                  <Dropdown onSelect={(eventKey) => {}} id="dropMenu">
-                                      <Dropdown.Toggle btnStyle="flat" id="maisInformacoes" onClick={() => this.mostrarLocalStorage()}>
+                                  <Dropdown onSelect={(eventKey) => {}}>
+                                      <Dropdown.Toggle btnStyle="flat" id="maisInformacoes">
                                           <img src={usuario} alt="Botão de usuário para acessar sua conta"/> <span>Minha conta</span>
                                       </Dropdown.Toggle>
-                                    <Dropdown.Menu id="menuPrincipal">
+                                    <Dropdown.Menu>
                                     <div id="ultimaCompra">
                                         <MenuItem header id="usuario">Olá Willian</MenuItem>
                                         <MenuItem header>willian.lopes@corebiz.com.br</MenuItem>
                                         <MenuItem eventKey={1} id="sair">sair</MenuItem>
                                         <MenuItem divider />
                                         <MenuItem header id='"ult1'>Última compra</MenuItem>
-                                        <MenuItem header id="ult2"><img id="imgUrsinho" src={this.state.imagemProduto[this.state.i-1]} alt="Botão de usuário para acessar sua conta"/> <span id="desc">{this.state.nomeProduto[this.state.i-1]}</span> <span  id="preco">{this.state.precoProduto[this.state.i-1]}</span></MenuItem>                        
+                                        <MenuItem header id="ult2"><img id="imgUrsinho" src={ursinho} alt="Botão de usuário para acessar sua conta"/> <span id="desc">BOMBOM GLAMOUR 200G</span> <span  id="preco">R$ 1.99</span></MenuItem>                        
                                       </div>
                                     </Dropdown.Menu>
                                   </Dropdown>
@@ -136,9 +136,9 @@ class Header extends Component{
                               <a href="/">Categoria 02</a>
                               <a href="/">Categoria 03</a>
                               <a href="/">Categoria 04</a>   
-
+                              {/* <a href="/">Minha conta</a>  */}
                               <Dropdown onSelect={(eventKey) => {}}>
-                                  <Dropdown.Toggle btnStyle="flat" id="maisInformacoes" onClick={() => this.mostrarLocalStorage()}>
+                                  <Dropdown.Toggle btnStyle="flat" id="maisInformacoes">
                                       <span>Minha conta</span>
                                   </Dropdown.Toggle>
                                 <Dropdown.Menu>
@@ -148,7 +148,7 @@ class Header extends Component{
                                       <MenuItem eventKey={1} id="sair">sair</MenuItem>
                                       <MenuItem divider />
                                       <MenuItem header id='"ult1'>Última compra</MenuItem>
-                                      <MenuItem header id="ult2"><img id="imgUrsinho" src={this.state.imagemProduto[this.state.i-1]} alt="Botão de usuário para acessar sua conta"/> <span id="desc">{this.state.nomeProduto[this.state.i-1]}</span> <span  id="preco">{this.state.precoProduto[this.state.i-1]}</span></MenuItem>                      
+                                      <MenuItem header id="ult2"><img id="imgUrsinho" src={ursinho} alt="Botão de usuário para acessar sua conta"/> <span id="desc">BOMBOM GLAMOUR 200G</span> <span  id="preco">R$ 1.99</span></MenuItem>                        
                                     </div>
                                 </Dropdown.Menu>
                               </Dropdown>
@@ -157,19 +157,23 @@ class Header extends Component{
                         </div>
                     </div>              
                 </nav>
-              
+                
+                {/* <a href="#"><img src={usuario} alt="Botão de usuário para acessar sua conta"/> Minha conta</a>    */}
+
+                {/* <a href="/"><img src={carrinho} alt="Carrinho de compras realizadas"/></a>   */}
+
                 <Dropdown onSelect={(eventKey) => {}}>
                     <Dropdown.Toggle btnStyle="flat" id="maisInformacoes" onClick={() => this.mostrarLocalStorage()}>
                         <p id="qtdPedidos">{this.state.i}</p><img src={carrinho} alt="Carrinho de compras realizadas"/>
                     </Dropdown.Toggle>
-                    <Dropdown.Menu id="menuPrincipal">
-                        <MenuItem header id="areaItens"><span>MEU CARRINHO</span>  <span>{this.state.i} item(s)</span></MenuItem>
+                    <Dropdown.Menu>
+                        <MenuItem header id="areaItens"><span>MEU CARRINHO</span>  <span>03 item(s)</span></MenuItem>
                         <div id="itens">
                           {produtos}
                           <MenuItem divider />
                           <MenuItem header id="totalItens">Total: R${this.state.valorTotal}</MenuItem> 
                           <MenuItem header><a href="/" id="comprarItens">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a></MenuItem> 
-                          <MenuItem header><a href="/" id="limparItens" onClick={() => this.limparCompra()}>X Limpar carrinho</a></MenuItem>                         
+                          <MenuItem header><a href="/" id="limparItens" onClick={() => this.deletarCompras()}>X Limpar carrinho</a></MenuItem>                         
                         </div>
                     </Dropdown.Menu>
                 </Dropdown>

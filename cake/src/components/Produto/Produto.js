@@ -8,7 +8,6 @@ class Produto extends Component{
     super();
     this.state = {
         listaProdutos: [],
-        // nomeProduto: "",
         more: 4
     }
 }
@@ -26,12 +25,6 @@ getProdutos = () => {
         })
 }
 
-// postSetState = (input) => {
-//     this.setState({
-//       nomeProduto: input.target.value
-//     })
-// }
-
 maisProdutos = () => {
     this.setState({ more: this.state.more + 4 });
     this.getProdutos();
@@ -46,18 +39,18 @@ maisProdutos = () => {
                     return (
                         <>
                             <div className="card">
-                            <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
-                            
-                            <p id="nomeProdutoHome">
-                                {produto.productName}
-                            </p>
-                            
-                            <p id="rs">
-                                R$ <span id="valor">{produto.price}</span>
-                            </p>
+                                <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
+                                
+                                <p id="nomeProdutoHome">
+                                    {produto.productName}
+                                </p>
+                                
+                                <p id="rs">
+                                    R$ <span id="valor">{produto.price}</span>
+                                </p>
 
-                            <Link className="btnComprar" to={{ pathname: '/Compra', state: { productId: produto.productId } }} >COMPRAR    <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></Link>
-                        </div>                 
+                                <Link className="btnComprar" to={{ pathname: '/Compra', state: { productId: produto.productId } }} >COMPRAR    <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></Link>
+                            </div>                 
                         </>
                     );
                 })
@@ -65,7 +58,7 @@ maisProdutos = () => {
             </div>
             
             <div id="mais">
-                <i onClick={() => { this.maisProdutos() }} class="far fa-plus-square fa-2x"></i>
+                <i onClick={() => { this.maisProdutos() }} className="far fa-plus-square fa-2x"></i>
             </div>
         </div>
     );

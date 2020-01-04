@@ -130,6 +130,15 @@
     padding: 50px 50px;
 } */
 
+#qtdPedidos{
+  background-color: var(--laranja);
+  border-radius: 10px;
+  width: 20px;
+  color: var(--branco);
+  text-align: center;
+  margin-left: 10px;
+}
+
 /* -------------------------- */
 
   /*#region Header*/

@@ -84,7 +84,7 @@ class Header extends Component{
 
                 <Dropdown onSelect={(eventKey) => {}}>
                     <Dropdown.Toggle btnStyle="flat" id="maisInformacoes">
-                        <img src={carrinho} alt="Carrinho de compras realizadas"/>
+                        <p id="qtdPedidos">0</p><img src={carrinho} alt="Carrinho de compras realizadas"/>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <MenuItem header id="areaItens"><span>MEU CARRINHO</span>  <span>03 item(s)</span></MenuItem>
@@ -92,8 +92,8 @@ class Header extends Component{
                           <MenuItem header id="ult2"><img id="imgUrsinho" src={ursinho} alt="Botão de usuário para acessar sua conta"/> <span id="desc">BOMBOM GLAMOUR 200G</span> <span  id="preco">R$ 1.99</span></MenuItem>   
                           <MenuItem divider />
                           <MenuItem header id="totalItens">Total: R$80,19</MenuItem> 
-                          <MenuItem header><a href="#" id="comprarItens">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a></MenuItem> 
-                          <MenuItem header><a href="#" id="limparItens">X Limpar carrinho</a></MenuItem>                         
+                          <MenuItem header><a href="/" id="comprarItens">COMPRAR <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></a></MenuItem> 
+                          <MenuItem header><a href="/" id="limparItens">X Limpar carrinho</a></MenuItem>                         
                         </div>
                     </Dropdown.Menu>
                 </Dropdown>

@@ -16,7 +16,8 @@ class Compra extends Component {
         super(props);
         this.state = {
             listaProduto: [],
-            value: 0
+            value: 0,
+            produto: 0
         }
     }
 
@@ -43,6 +44,10 @@ class Compra extends Component {
     increase = () => {
         this.setState({ value: this.state.value + 1 });
     }
+
+    // comprar = () => {
+    //     this.setState({ produto: this.state.produto + 1 });
+    // }
 
     render() {
         return (
@@ -91,7 +96,12 @@ class Compra extends Component {
                             );
                         })
                 }
+
                 </div>
+
+                {/* <input className="quantity" name="quantity" value={this.state.produto} onChange={()=> console.log('change')} type="number" />
+                <button onClick={() => this.comprar()} >Comprar</button> */}
+
             </main>
             <Footer />
         </div>

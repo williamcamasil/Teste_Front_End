@@ -33,5 +33,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-rename": "^2.0.0"
   }
 }

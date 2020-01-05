@@ -4,7 +4,6 @@ import logo from '../../assets/img/logo.svg';
 import usuario from '../../assets/img/usuario.svg';
 import carrinho from '../../assets/img/carrinho.svg';
 import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
-
 import Dropdown, { MenuItem } from '@trendmicro/react-dropdown';
 
 class Header extends Component{
@@ -54,6 +53,11 @@ class Header extends Component{
 
       this.setState({  valorTotal : res });      
     }, 100);
+
+    if(localStorage.getItem ( "nomeProduto" ))
+        document.getElementById('ult2').style.display = 'flex';
+    else
+        document.getElementById('ult2').style.display = 'none';
   }
 
   decrease = () => {
@@ -90,7 +94,6 @@ class Header extends Component{
           </div>
         </div>
 
-        {/* <span  id="preco">R$ {this.state.qtdProduto[i] * this.state.precoProduto[i]}</span> */}
         <span  id="preco">R$ {this.state.valorItem[i] }</span>
       </MenuItem>)
     }
@@ -104,7 +107,7 @@ class Header extends Component{
                 <nav id="menuGeral">
                     <div id="menuWeb">
                         <ul id="menu">
-                            <li><a href="/">Categoria 01</a></li>
+                            <li><a href="/">Home</a></li>
                             <li><a href="/">Categoria 02</a></li>
                             <li><a href="/">Categoria 03</a></li>
                             <li><a href="/">Categoria 04</a></li>

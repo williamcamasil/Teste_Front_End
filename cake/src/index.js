@@ -10,13 +10,13 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@trendmicro/react-buttons/dist/react-buttons.css';
 import '@trendmicro/react-dropdown/dist/react-dropdown.css';
 
+import './assets/css/style.css';
 import {Route, BrowserRouter as Router, Switch} from 'react-router-dom';
 import Compra from './pages/Compra/Compra';
 import NotFound from './pages/NotFound/NotFound';
 
 //Realizar a criação das rotas
 const Rotas = (
-    //cria a URL
     <Router> 
         <div>
             <Switch>
@@ -30,11 +30,4 @@ const Rotas = (
 )
 
 ReactDOM.render(Rotas, document.getElementById('root'));
-
-
-// ReactDOM.render(<Inicial />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import '../../assets/css/style.css';
 import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
 import { Link } from "react-router-dom";
 
@@ -20,9 +19,11 @@ getProdutos = () => {
     fetch('https://desolate-brushlands-20405.herokuapp.com/api/v1/products')
         .then(response => response.json())
         .then(response => {
+            console.log(response);
             var redux = response.slice(0, this.state.more)
             this.setState({ listaProdutos: redux })
         })
+        .catch(error => console.log(error))
 }
 
 maisProdutos = () => {
@@ -35,25 +36,25 @@ maisProdutos = () => {
         <div>
             <div className="produto">
                 {
-                this.state.listaProdutos.map(function (produto) {
-                    return (
-                        < >
-                            <div className="card">
-                                <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
-                                
-                                <p id="nomeProdutoHome">
-                                    {produto.productName}
-                                </p>
-                                
-                                <p id="rs">
-                                    R$ <span id="valor">{produto.price}</span>
-                                </p>
+                    this.state.listaProdutos.map(function (produto) {
+                        return (
+                            < >
+                                <div className="card">
+                                    <img src={produto.imageUrl} className="imgBombom" alt="Imagem de um bombom" />
+                                    
+                                    <p id="nomeProdutoHome">
+                                        {produto.productName}
+                                    </p>
+                                    
+                                    <p id="rs">
+                                        R$ <span id="valor">{produto.price}</span>
+                                    </p>
 
-                                <Link className="btnComprar" to={{ pathname: '/Compra', state: { productId: produto.productId } }} >COMPRAR    <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></Link>
-                            </div>                 
-                        </>
-                    );
-                })
+                                    <Link className="btnComprar" to={{ pathname: '/Compra', state: { productId: produto.productId } }} >COMPRAR    <img src={carrinhoBranco} alt="Carrinho de compras na cor branca" /></Link>
+                                </div>                 
+                            </>
+                        );
+                    })
                 }
             </div>
             

@@ -3,7 +3,6 @@ import React, {Component} from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import carrinhoBranco from '../../assets/img/carrinho_branco.svg';
-import '../../assets/css/style.css';
 import { Carousel } from 'react-responsive-carousel';
 import { MDBAlert } from "mdbreact";
 
@@ -42,19 +41,25 @@ class Compra extends Component {
         fetch('https://desolate-brushlands-20405.herokuapp.com/api/v1/product/' + id)
         .then(response => response.json())
         .then(response => {
+            console.log(response);
             this.setState({ listaProduto: response })
             this.setState({ productName: this.state.listaProduto[0].productName });
             this.setState({ imageUrl: this.state.listaProduto[0].imageUrl });
             this.setState({ price: this.state.listaProduto[0].price });
         })
+        .catch(error => console.log(error))
     }
 
     decrease = () => {
-        this.setState({ value: this.state.value - 1 });
+        if (this.state.value > 0){
+            this.setState({ value: this.state.value - 1 });
+        }
     }
 
     increase = () => {
-        this.setState({ value: this.state.value + 1 });
+        if (this.state.value >= 0){
+            this.setState({ value: this.state.value + 1 });
+        }
     }
 
     //simulando compra
@@ -83,39 +88,41 @@ class Compra extends Component {
             this.setState({ a: localStorage.getItem( "qtdids"  ) });
         }
  
-        setTimeout(() => {
-            if ( this.state.value !== 0){
-                let m = false;
-                for(let l = 0; l <= this.state.i-1; l++){
-                    if (this.state.ids[l] === this.props.location.state.productId ){
-                        m = true; //item já foi comprado - Permitir mudar somente a quantidade
+        if ( this.state.value !== 0){
+            setTimeout(() => {
+                    let m = false;
+                    for(let l = 0; l <= this.state.i-1; l++){
+                        if (this.state.ids[l] === this.props.location.state.productId ){
+                            m = true; 
+                        }
                     }
-                }
-    
-                //verificando se item já foi comprado
-                if(m === false){
-                    this.state.successMsg = "Item comprado com sucesso!"
-                    let res = parseInt(this.state.a) + 1; 
-                    this.setState({ i: res });
-                    localStorage.setItem("qtdids", this.state.i);
+        
+                    //verificando se item já foi comprado
+                    if(m === false){
+                        this.state.successMsg = "Item comprado com sucesso! Confira no carrinho."
+                        let res = parseInt(this.state.a) + 1; 
+                        this.setState({ i: res });
+                        localStorage.setItem("qtdids", this.state.i);
+                        
+                        this.state.nomeProduto[this.state.i-1] = this.state.productName;
+                        this.state.imagemProduto[this.state.i-1] = this.state.imageUrl;
+                        this.state.precoProduto[this.state.i-1] = this.state.price;
+                        this.state.qtdProduto[this.state.i-1] = this.state.value;
+                        this.state.ids[this.state.i-1] = this.props.location.state.productId;
+                
+                        localStorage.setItem("nomeProduto" , JSON.stringify(this.state.nomeProduto));
+                        localStorage.setItem("imagemProduto" , JSON.stringify(this.state.imagemProduto));
+                        localStorage.setItem("precoProduto" , JSON.stringify(this.state.precoProduto));
+                        localStorage.setItem("qtdProduto" , JSON.stringify(this.state.qtdProduto));
+                        localStorage.setItem("ids" , JSON.stringify(this.state.ids));
+                    }else{
+                        this.state.successMsg = "Item já foi comprado confira no carrinho."
+                    }
                     
-                    this.state.nomeProduto[this.state.i-1] = this.state.productName;
-                    this.state.imagemProduto[this.state.i-1] = this.state.imageUrl;
-                    this.state.precoProduto[this.state.i-1] = this.state.price;
-                    this.state.qtdProduto[this.state.i-1] = this.state.value;
-                    this.state.ids[this.state.i-1] = this.props.location.state.productId;
-            
-                    localStorage.setItem("nomeProduto" , JSON.stringify(this.state.nomeProduto));
-                    localStorage.setItem("imagemProduto" , JSON.stringify(this.state.imagemProduto));
-                    localStorage.setItem("precoProduto" , JSON.stringify(this.state.precoProduto));
-                    localStorage.setItem("qtdProduto" , JSON.stringify(this.state.qtdProduto));
-                    localStorage.setItem("ids" , JSON.stringify(this.state.ids));
-                }
+                }, 50);
             }else{
                 this.state.erroMsg = "Houve algum problema no sistema. A compra não foi processada."
             }
-            
-        }, 50);
 
         setTimeout(() => {
             this.setState({ successMsg: "" });
@@ -141,7 +148,7 @@ class Compra extends Component {
                     </div>
                     <div id="informacoesProduto">
                         <p id="nomeProdutoCompra">{this.state.productName}</p>
-                        <p id="valorAnterior">R$ 30,00</p>
+                        <p id="valorAnterior">R$ 3,00</p>
                         <p id="rs">
                             R$ <span id="valorNovo">{this.state.price}</span>
                         </p>

@@ -493,6 +493,10 @@
     .btnEnviar{
       padding: 10px 15px;
     }
+
+    .componentes{
+      margin: 19vh 0vh;
+    }
   
   }
   /*#endregion*/
